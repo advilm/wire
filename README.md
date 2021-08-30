@@ -1,3 +1,3 @@
-# Wire
+# WireChat
 
 Chat app?
