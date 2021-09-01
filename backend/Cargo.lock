@@ -3,5 +3,5 @@
 version = 3
 
 [[package]]
-name = "WireChat"
+name = "wire_chat"
 version = "0.1.0"
