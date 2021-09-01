@@ -3,6 +3,7 @@ import 'tailwindcss/tailwind.css';
 
 import Head from 'next/head';
 import { RecoilRoot } from 'recoil';
+import { GeistProvider, CssBaseline } from '@geist-ui/react';
 
 function App({ Component, pageProps }) {
 	return (
@@ -22,7 +23,10 @@ function App({ Component, pageProps }) {
 				<meta property="og:description" content="Open source chat application."/>
 			</Head>
 			<RecoilRoot>
-				<Component {...pageProps}/>
+				<GeistProvider>
+					<CssBaseline/>
+					<Component {...pageProps}/>
+				</GeistProvider>
 			</RecoilRoot>
 		</>
 	);
