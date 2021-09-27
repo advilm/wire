@@ -2,41 +2,45 @@ module.exports = {
 	'env': {
 		'browser': true,
 		'es2021': true,
-		'node': true
+		'node': true,
 	},
 	'extends': [
 		'eslint:recommended',
-		'plugin:react/recommended'
+		'plugin:react/recommended',
 	],
 	'parserOptions': {
 		'ecmaFeatures': {
-			'jsx': true
+			'jsx': true,
 		},
 		'ecmaVersion': 12,
-		'sourceType': 'module'
+		'sourceType': 'module',
 	},
 	'plugins': [
-		'react'
+		'react',
 	],
 	'rules': {
 		'indent': [
 			'error',
-			'tab'
+			'tab',
 		],
 		'linebreak-style': [
 			'error',
-			'unix'
+			'unix',
 		],
 		'quotes': [
 			'error',
-			'single'
+			'single',
 		],
 		'semi': [
 			'error',
-			'always'
+			'always',
+		],
+		'comma-dangle': [
+			'error',
+			'always-multiline',
 		],
 		'react/prop-types': [
-			0
+			0,
 		],
-	}
+	},
 };
