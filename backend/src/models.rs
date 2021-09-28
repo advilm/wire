@@ -5,7 +5,7 @@ use validator::Validate;
 #[allow(dead_code)]
 pub struct Config<'a> {
     pub postgres_url: &'a str,
-    pub port: u16,
+    pub port: String,
 }
 
 #[derive(Deserialize, Validate)]

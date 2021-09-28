@@ -15,6 +15,7 @@ use axum::{
     AddExtensionLayer, Router,
 };
 
+use std::env;
 use std::net::SocketAddr;
 use std::sync::Arc;
 
@@ -32,7 +33,7 @@ async fn main() -> wire::Res<()> {
         .route("/users", post(create_user))
         .layer(AddExtensionLayer::new(Arc::new(pool)));
 
-    let addr = SocketAddr::from(([0, 0, 0, 0], config.port));
+    let addr = SocketAddr::from(([0, 0, 0, 0], env::var("PORT").unwrap_or(config.port).parse::<u16>().unwrap()));
     axum::Server::bind(&addr)
         .serve(app.into_make_service())
         .await?;
