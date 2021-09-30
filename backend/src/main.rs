@@ -14,6 +14,8 @@ use axum::{
     response::IntoResponse,
     AddExtensionLayer, Router,
 };
+use tower_http::cors::{Any, CorsLayer};
+use http::{Method,header::CONTENT_TYPE};
 
 use std::env;
 use std::net::SocketAddr;
@@ -29,11 +31,24 @@ async fn main() -> wire::Res<()> {
 
     let pool = Pool::<Postgres>::connect(config.postgres_url).await?;
 
-    let app = Router::new()
-        .route("/users", post(create_user))
-        .layer(AddExtensionLayer::new(Arc::new(pool)));
+    let cors = CorsLayer::new()
+        .allow_methods(vec![Method::POST])
+        .allow_origin(Any)
+        .allow_credentials(false)
+        .allow_headers(vec![CONTENT_TYPE]);
 
-    let addr = SocketAddr::from(([0, 0, 0, 0], env::var("PORT").unwrap_or(config.port).parse::<u16>().unwrap()));
+    let app = Router::new()
+        .route("/users/create", post(create_user))
+        .layer(AddExtensionLayer::new(Arc::new(pool)))
+        .layer(cors);
+
+    let addr = SocketAddr::from((
+        [0, 0, 0, 0],
+        env::var("PORT")
+            .unwrap_or(config.port)
+            .parse::<u16>()
+            .unwrap(),
+    ));
     axum::Server::bind(&addr)
         .serve(app.into_make_service())
         .await?;
