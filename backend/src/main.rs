@@ -14,8 +14,8 @@ use axum::{
     response::IntoResponse,
     AddExtensionLayer, Router,
 };
+use http::{header::CONTENT_TYPE, Method};
 use tower_http::cors::{Any, CorsLayer};
-use http::{Method,header::CONTENT_TYPE};
 
 use std::env;
 use std::net::SocketAddr;
