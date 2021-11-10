@@ -1,38 +1,13 @@
 import React from 'react';
-import 'tailwindcss/tailwind.css';
-
 import Head from 'next/head';
 import { RecoilRoot } from 'recoil';
 
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-// import '@fontsource/inter';
+import { ThemeProvider } from '@mui/material/styles';
 
 import { SnackbarProvider } from 'notistack';
-import { Alert } from '@mui/material';
-const theme = createTheme({
-	typography: {
-		fontFamily: [
-			'"Segoe UI"',
-			'Roboto',
-			// 'inter',
-			'-apple-system',
-			'BlinkMacSystemFont',
-			'"Helvetica Neue"',
-			'Arial',
-			'sans-serif',
-			'"Apple Color Emoji"',
-			'"Segoe UI Emoji"',
-			'"Segoe UI Symbol"',
-		].join(','),
-		button: {
-			textTransform: 'none',
-		},
-	},
-	palette: {
-		mode: 'dark',
-	},
-});
+import { Alert, CssBaseline } from '@mui/material';
 
+import theme from '../lib/theme';
   
 function App({ Component, pageProps }) {
 	return (
@@ -53,20 +28,22 @@ function App({ Component, pageProps }) {
 			</Head>
 			<RecoilRoot>
 				<ThemeProvider theme={theme}>
-					<SnackbarProvider
-						maxSnack={3}
-						anchorOrigin={{
-							vertical: 'top',
-							horizontal: 'center',
-						}}
-						autoHideDuration={3000}
-						preventDuplicate
-						content={(key, data) => (
-							<Alert id={key} variant='filled' severity={data[0]}>{data[1]}</Alert>
-						)}
-					>
-						<Component {...pageProps}/>
-					</SnackbarProvider>
+					<CssBaseline>
+						<SnackbarProvider
+							maxSnack={3}
+							anchorOrigin={{
+								vertical: 'top',
+								horizontal: 'center',
+							}}
+							autoHideDuration={3000}
+							preventDuplicate
+							content={(key, data) => (
+								<Alert id={key} variant='filled' severity={data[0]}>{data[1]}</Alert>
+							)}
+						>
+							<Component {...pageProps}/>
+						</SnackbarProvider>
+					</CssBaseline>
 				</ThemeProvider>
 			</RecoilRoot>
 		</>
